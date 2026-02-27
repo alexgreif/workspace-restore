@@ -1,0 +1,43 @@
+@startuml WorkspaceAppV1Overview
+title Workspace App V1 - High-Level Module Overview
+
+skinparam componentStyle rectangle
+skinparam shadowing false
+left to right direction
+
+actor "User" as USER
+
+package "Layer 5 - UI" {
+  [UI] as UI
+}
+
+package "Layer 4 - AppOrchestrator" {
+  [AppOrchestrator] as ORCH
+}
+
+package "Layer 3 - WorkspaceEngine" {
+  [WorkspaceEngine] as ENG
+}
+
+package "Layer 2 - Persistence" {
+  [Persistence] as PERS
+}
+
+package "Layer 1 - Domain" {
+  [Domain] as DOM
+}
+
+package "Layer 0 - WinApi" {
+  [WinApi] as API
+}
+
+USER --> UI : Interacts with
+UI --> ORCH : Invokes application facade
+ORCH --> ENG : Coordinates capture/recapture/restore
+ORCH --> PERS : Lists and deletes workspaces
+ENG --> PERS : Loads and stores workspaces
+ENG --> DOM : Builds and returns models/results
+ENG --> API : Enumerates/closes/launches/repositions windows
+PERS --> DOM : Serializes/deserializes workspace models
+
+@enduml

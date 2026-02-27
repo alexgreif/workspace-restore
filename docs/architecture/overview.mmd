@@ -1,0 +1,37 @@
+flowchart LR
+  user[User]
+
+  subgraph L5[Layer 5 - UI]
+    ui[UI]
+  end
+
+  subgraph L4[Layer 4 - AppOrchestrator]
+    orchestrator[AppOrchestrator]
+  end
+
+  subgraph L3[Layer 3 - WorkspaceEngine]
+    engine[WorkspaceEngine]
+  end
+
+  subgraph L2[Layer 2 - Persistence]
+    persistence[Persistence]
+  end
+
+  subgraph L1[Layer 1 - Domain]
+    domain[Domain]
+  end
+
+  subgraph L0[Layer 0 - WinApi]
+    winapi[WinApi]
+  end
+
+  user -->|Interacts with| ui
+  ui -->|Invokes application facade| orchestrator
+  orchestrator -->|Coordinates capture/recapture/restore| engine
+  orchestrator -->|Lists and deletes workspaces| persistence
+
+  engine -->|Loads and stores workspaces| persistence
+  engine -->|Builds and returns domain models/results| domain
+  engine -->|Enumerates/closes/launches/repositions windows| winapi
+
+  persistence -->|Serializes/deserializes workspace models| domain

@@ -1,0 +1,84 @@
+@startuml Schalke
+title Workspace App — V1 Layered Architecture (Components)
+
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+package "UI Layer" {
+  [GUI] as UI
+}
+
+package "AppOrchestrator Layer" {
+  [IWorkspaceAppController] as CTRL
+}
+
+package "WorkspaceEngine Layer" {
+  [CaptureService] as CAP
+  [RecaptureService] as REC
+  [RestoreService] as RES
+}
+
+package "Persistence Layer" {
+  [IWorkspaceRepository] as REPO
+  [SchemaMigrator] as MIG
+}
+
+package "Domain Layer" {
+  [Workspace] as WS
+  [ApplicationEntry] as AE
+  [WindowLayout] as WL
+  [OperationResult] as OR
+}
+
+package "WinApi Layer" {
+  [IWindowEnumerator] as ENUM
+  [IWindowCloser] as CLOSE
+  [IProcessLauncher] as LAUNCH
+  [IWindowMover] as MOVE
+  [IMonitorService] as MON
+}
+
+UI --> CTRL : invokes use cases
+CTRL --> CAP : orchestrates + progress
+CTRL --> REC : orchestrates + progress
+CTRL --> RES : orchestrates + progress
+
+CAP --> ENUM : snapshot windows
+CAP --> WS : builds models
+CAP --> REPO : create(workspace)
+
+REC --> ENUM : snapshot windows
+REC --> WS : overwrite models
+REC --> REPO : update(workspace)
+
+RES --> REPO : get(workspace)
+RES --> MIG : migrate(V1)
+RES --> ENUM : enumerate windows
+RES --> CLOSE : WM_CLOSE (sequential)
+RES --> LAUNCH : launch(exePath)
+RES --> MOVE : set bounds / minimize / activate
+RES --> MON : clamp to visible area
+RES --> OR : events + errors
+
+REPO ..> WS : serialize/deserialize
+WS --> AE
+AE --> WL
+
+note right of RES
+  Restore flow (V1):
+  1) Global close (sequential, abort-on-timeout)
+  2) Launch each exePath
+  3) Position up to N captured windows
+  4) Replay z-order
+end note
+
+note bottom
+  V1 constraints:
+  - Windows-only
+  - Visible top-level windows (not cloaked)
+  - Shell infrastructure windows excluded (taskbar/desktop host)
+  - Fully off-screen: clamp + minimize
+  - Partially off-screen: clamp only
+end note
+
+@enduml
