@@ -1,0 +1,151 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0": {
+      "WorkspaceApp.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/WorkspaceApp.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WorkspaceApp.Domain.dll": {}
+        }
+      },
+      "WorkspaceApp.Engine/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "WorkspaceApp.Domain": "1.0.0",
+          "WorkspaceApp.Persistence": "1.0.0",
+          "WorkspaceApp.WinApi": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/WorkspaceApp.Engine.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WorkspaceApp.Engine.dll": {}
+        }
+      },
+      "WorkspaceApp.Persistence/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "WorkspaceApp.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/WorkspaceApp.Persistence.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WorkspaceApp.Persistence.dll": {}
+        }
+      },
+      "WorkspaceApp.WinApi/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/WorkspaceApp.WinApi.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WorkspaceApp.WinApi.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "WorkspaceApp.Domain/1.0.0": {
+      "type": "project",
+      "path": "../WorkspaceApp.Domain/WorkspaceApp.Domain.csproj",
+      "msbuildProject": "../WorkspaceApp.Domain/WorkspaceApp.Domain.csproj"
+    },
+    "WorkspaceApp.Engine/1.0.0": {
+      "type": "project",
+      "path": "../WorkspaceApp.Engine/WorkspaceApp.Engine.csproj",
+      "msbuildProject": "../WorkspaceApp.Engine/WorkspaceApp.Engine.csproj"
+    },
+    "WorkspaceApp.Persistence/1.0.0": {
+      "type": "project",
+      "path": "../WorkspaceApp.Persistence/WorkspaceApp.Persistence.csproj",
+      "msbuildProject": "../WorkspaceApp.Persistence/WorkspaceApp.Persistence.csproj"
+    },
+    "WorkspaceApp.WinApi/1.0.0": {
+      "type": "project",
+      "path": "../WorkspaceApp.WinApi/WorkspaceApp.WinApi.csproj",
+      "msbuildProject": "../WorkspaceApp.WinApi/WorkspaceApp.WinApi.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0": [
+      "WorkspaceApp.Engine >= 1.0.0",
+      "WorkspaceApp.Persistence >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\AlexanderShmelkin\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.App\\WorkspaceApp.App.csproj",
+      "projectName": "WorkspaceApp.App",
+      "projectPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.App\\WorkspaceApp.App.csproj",
+      "packagesPath": "C:\\Users\\AlexanderShmelkin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.App\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\AlexanderShmelkin\\AppData\\Roaming\\NuGet\\NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {
+            "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Engine\\WorkspaceApp.Engine.csproj": {
+              "projectPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Engine\\WorkspaceApp.Engine.csproj"
+            },
+            "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Persistence\\WorkspaceApp.Persistence.csproj": {
+              "projectPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Persistence\\WorkspaceApp.Persistence.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      }
+    },
+    "frameworks": {
+      "net8.0": {
+        "targetAlias": "net8.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.418/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

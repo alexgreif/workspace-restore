@@ -1,0 +1,319 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.App\\WorkspaceApp.App.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.App\\WorkspaceApp.App.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.App\\WorkspaceApp.App.csproj",
+        "projectName": "WorkspaceApp.App",
+        "projectPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.App\\WorkspaceApp.App.csproj",
+        "packagesPath": "C:\\Users\\AlexanderShmelkin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.App\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\AlexanderShmelkin\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Engine\\WorkspaceApp.Engine.csproj": {
+                "projectPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Engine\\WorkspaceApp.Engine.csproj"
+              },
+              "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Persistence\\WorkspaceApp.Persistence.csproj": {
+                "projectPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Persistence\\WorkspaceApp.Persistence.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.418/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Domain\\WorkspaceApp.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Domain\\WorkspaceApp.Domain.csproj",
+        "projectName": "WorkspaceApp.Domain",
+        "projectPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Domain\\WorkspaceApp.Domain.csproj",
+        "packagesPath": "C:\\Users\\AlexanderShmelkin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\AlexanderShmelkin\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.418/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Engine\\WorkspaceApp.Engine.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Engine\\WorkspaceApp.Engine.csproj",
+        "projectName": "WorkspaceApp.Engine",
+        "projectPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Engine\\WorkspaceApp.Engine.csproj",
+        "packagesPath": "C:\\Users\\AlexanderShmelkin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Engine\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\AlexanderShmelkin\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Domain\\WorkspaceApp.Domain.csproj": {
+                "projectPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Domain\\WorkspaceApp.Domain.csproj"
+              },
+              "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Persistence\\WorkspaceApp.Persistence.csproj": {
+                "projectPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Persistence\\WorkspaceApp.Persistence.csproj"
+              },
+              "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.WinApi\\WorkspaceApp.WinApi.csproj": {
+                "projectPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.WinApi\\WorkspaceApp.WinApi.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.418/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Persistence\\WorkspaceApp.Persistence.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Persistence\\WorkspaceApp.Persistence.csproj",
+        "projectName": "WorkspaceApp.Persistence",
+        "projectPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Persistence\\WorkspaceApp.Persistence.csproj",
+        "packagesPath": "C:\\Users\\AlexanderShmelkin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Persistence\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\AlexanderShmelkin\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Domain\\WorkspaceApp.Domain.csproj": {
+                "projectPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.Domain\\WorkspaceApp.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.418/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.WinApi\\WorkspaceApp.WinApi.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.WinApi\\WorkspaceApp.WinApi.csproj",
+        "projectName": "WorkspaceApp.WinApi",
+        "projectPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.WinApi\\WorkspaceApp.WinApi.csproj",
+        "packagesPath": "C:\\Users\\AlexanderShmelkin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\AlexanderShmelkin\\OneDrive - FernUniversität Hagen\\Projekte\\clean-workspace-app\\src\\WorkspaceApp.WinApi\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\AlexanderShmelkin\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.418/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
