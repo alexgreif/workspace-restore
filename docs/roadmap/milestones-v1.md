@@ -40,7 +40,6 @@ Establish repository structure, solution layout, and documentation placement.
   - WorkspaceApp.UI (WPF)
 - Project references wired to enforce dependency direction
 - README and LICENSE committed
-- “Architecture baseline” tag created
 
 ## Definition of Done
 - Solution builds successfully from clean checkout

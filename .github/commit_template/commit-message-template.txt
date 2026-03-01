@@ -1,0 +1,19 @@
+# Conventional Commit Template
+
+<type>(<scope>): <short imperative summary>
+
+<body: what changed and why>
+
+<footer: breaking changes/issues/adr references>
+
+# Types:
+# feat, fix, docs, chore, refactor, test
+#
+# Example:
+# feat(engine): implement capture create-only flow
+#
+# Optional body notes:
+# - behavior change summary
+# - validation notes
+# - milestone reference (M3, M4, ...)
+# - ADR reference when applicable
