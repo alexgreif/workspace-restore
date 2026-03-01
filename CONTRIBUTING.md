@@ -63,3 +63,13 @@ Unit tests are expected for deterministic logic (Domain/Engine). Avoid brittle U
 - `feat(<area>):` new behavior (e.g., `feat(engine): implement capture service`)
 - `fix(<area>):` bug fixes
 - `docs:` documentation-only changes
+
+## Git Strategy
+
+Use the project Git workflow in `docs/process/git-strategy.md`.
+
+- Branch from `main` using short-lived feature/fix/docs/chore branches.
+- Open focused PRs and use the PR template in `.github/PULL_REQUEST_TEMPLATE/pull_request_template.md`.
+- Use Conventional Commits (optional local template: `.github/commit_template/commit-message-template.txt`).
+- Tag completed milestones on `main` (`m0` ... `m12`).
+
