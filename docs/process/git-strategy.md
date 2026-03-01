@@ -44,6 +44,20 @@ Tag `main` when a milestone is done:
 
 - `m0-baseline`, `m1-domain-model`, ..., `m12-hardening`
 
+Milestone tags must be annotated (`git tag -a`).
+
+Annotation message format:
+
+- Subject: `Milestone M{N} complete: <short title>`
+- Body: `Scope: <what was completed>`
+- Body: `Ref: docs/roadmap/milestones-v1.md`
+
+Example:
+
+```text
+git tag -a m3-window-enumeration -m "Milestone M3 complete: Window Enumeration" -m "Scope: IWindowEnumerator + V1 filters + debug harness" -m "Ref: docs/roadmap/milestones-v1.md"
+```
+
 Optional semantic pre-release tags can be added in parallel (example: `v0.3.0-m3`).
 
 ## Main Branch Protection (Recommended)
@@ -60,3 +74,4 @@ If a change alters architecture or an accepted technical decision:
 - Add a new ADR in `docs/adr/`
 - Do not rewrite accepted ADR history
 - Reference the ADR in the PR description
+
