@@ -5,8 +5,8 @@ public sealed class Workspace
     public Workspace(
         WorkspaceId id,
         string name,
-        DateTime createdAtUtc,
-        DateTime updatedAtUtc,
+        DateTimeOffset createdAtUtc,
+        DateTimeOffset updatedAtUtc,
         IEnumerable<ApplicationEntry> entries,
         SchemaVersion schemaVersion)
     {
@@ -20,12 +20,12 @@ public sealed class Workspace
             throw new ArgumentException("Name cannot be null or whitespace.", nameof(name));
         }
 
-        if (createdAtUtc.Kind != DateTimeKind.Utc)
+        if (createdAtUtc.Offset != TimeSpan.Zero)
         {
             throw new ArgumentException("CreatedAtUtc must be in UTC.", nameof(createdAtUtc));
         }
 
-        if (updatedAtUtc.Kind != DateTimeKind.Utc)
+        if (updatedAtUtc.Offset != TimeSpan.Zero)
         {
             throw new ArgumentException("UpdatedAtUtc must be in UTC.", nameof(updatedAtUtc));
         }
@@ -49,9 +49,9 @@ public sealed class Workspace
 
     public string Name { get; }
 
-    public DateTime CreatedAtUtc { get; }
+    public DateTimeOffset CreatedAtUtc { get; }
 
-    public DateTime UpdatedAtUtc { get; }
+    public DateTimeOffset UpdatedAtUtc { get; }
 
     public IReadOnlyList<ApplicationEntry> Entries { get; }
 
