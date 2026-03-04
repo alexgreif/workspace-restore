@@ -153,6 +153,33 @@ public sealed class JsonWorkspaceRepositoryTests
     }
 
     [Fact]
+    public void List_SkipsCorruptedWorkspaceFiles_AndLogsWarning()
+    {
+        using var tempDir = new TempDirectory();
+        var warnings = new List<string>();
+        var storage = new LocalAppDataWorkspaceStoragePathProvider(tempDir.Path);
+        var repository = new JsonWorkspaceRepository(
+            storagePathProvider: storage,
+            logWarning: warnings.Add);
+
+        var validWorkspace = CreateSampleWorkspace(
+            new WorkspaceId("99999999-9999-9999-9999-999999999999"),
+            "Valid",
+            DateTimeOffset.Parse("2026-03-04T18:30:00+00:00"));
+        repository.Create(validWorkspace);
+
+        var corruptedId = new WorkspaceId("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee");
+        File.WriteAllText(storage.GetWorkspaceFilePath(corruptedId), "{ invalid json");
+
+        var summaries = repository.List();
+
+        Assert.Single(summaries);
+        Assert.Equal(validWorkspace.Id, summaries[0].Id);
+        Assert.Single(warnings);
+        Assert.Contains("Skipping corrupted workspace file", warnings[0]);
+    }
+
+    [Fact]
     public void Get_UsesSchemaMigrator()
     {
         using var tempDir = new TempDirectory();

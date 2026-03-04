@@ -10,13 +10,16 @@ public sealed class JsonWorkspaceRepository : IWorkspaceRepository
 {
     private static readonly Encoding Utf8NoBom = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 
+    private readonly Action<string> _logWarning;
     private readonly ISchemaMigrator _schemaMigrator;
     private readonly IWorkspaceStoragePathProvider _storagePathProvider;
 
     public JsonWorkspaceRepository(
         ISchemaMigrator? schemaMigrator = null,
-        IWorkspaceStoragePathProvider? storagePathProvider = null)
+        IWorkspaceStoragePathProvider? storagePathProvider = null,
+        Action<string>? logWarning = null)
     {
+        _logWarning = logWarning ?? (_ => { });
         _schemaMigrator = schemaMigrator ?? new SchemaMigratorV1();
         _storagePathProvider = storagePathProvider ?? new LocalAppDataWorkspaceStoragePathProvider();
     }
@@ -28,13 +31,26 @@ public sealed class JsonWorkspaceRepository : IWorkspaceRepository
             return [];
         }
 
-        var summaries = Directory
-            .EnumerateFiles(
-                _storagePathProvider.WorkspaceDirectoryPath,
-                "*" + WorkspaceStorageConstants.WorkspaceFileExtension,
-                SearchOption.TopDirectoryOnly)
-            .Select(ReadWorkspaceFromFile)
-            .Select(workspace => new WorkspaceSummary(workspace.Id, workspace.Name, workspace.UpdatedAtUtc))
+        var summaries = new List<WorkspaceSummary>();
+        var workspaceFiles = Directory.EnumerateFiles(
+            _storagePathProvider.WorkspaceDirectoryPath,
+            "*" + WorkspaceStorageConstants.WorkspaceFileExtension,
+            SearchOption.TopDirectoryOnly);
+
+        foreach (var filePath in workspaceFiles)
+        {
+            try
+            {
+                var workspace = ReadWorkspaceFromFile(filePath);
+                summaries.Add(new WorkspaceSummary(workspace.Id, workspace.Name, workspace.UpdatedAtUtc));
+            }
+            catch (InvalidDataException ex)
+            {
+                _logWarning($"Skipping corrupted workspace file '{filePath}': {ex.Message}");
+            }
+        }
+
+        summaries = summaries
             .OrderBy(summary => summary.Name, StringComparer.OrdinalIgnoreCase)
             .ThenBy(summary => summary.Id.Value, StringComparer.Ordinal)
             .ToList();
