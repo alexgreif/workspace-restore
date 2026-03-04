@@ -4,6 +4,7 @@ using WorkspaceApp.Domain.Models;
 
 namespace WorkspaceApp.Persistence.Serialization;
 
+// Enforces a stable persisted representation for WorkspaceId as a JSON string.
 public sealed class WorkspaceIdJsonConverter : JsonConverter<WorkspaceId>
 {
     public override WorkspaceId Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

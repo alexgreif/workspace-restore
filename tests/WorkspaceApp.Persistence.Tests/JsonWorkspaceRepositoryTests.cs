@@ -198,7 +198,7 @@ public sealed class JsonWorkspaceRepositoryTests
             "Migrated Name",
             DateTimeOffset.Parse("2026-03-04T19:00:00+00:00"));
         var migrator = new TestSchemaMigrator(migrated);
-        // Reuse the same storage to have access to workspace persisted before by "normal" repository
+        // Reuse the same storage so this assertion isolates migration behavior rather than storage differences.
         var repository = new JsonWorkspaceRepository(migrator, storage);
 
         var loaded = repository.Get(workspace.Id);
@@ -288,6 +288,7 @@ public sealed class JsonWorkspaceRepositoryTests
     {
         public TempDirectory()
         {
+            // Unique per-test root prevents cross-test contamination when tests run in parallel.
             Path = System.IO.Path.Combine(
                 System.IO.Path.GetTempPath(),
                 "workspaceapp-persistence-tests",

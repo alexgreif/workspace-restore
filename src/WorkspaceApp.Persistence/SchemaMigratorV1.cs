@@ -8,6 +8,7 @@ public sealed class SchemaMigratorV1 : ISchemaMigrator
     {
         ArgumentNullException.ThrowIfNull(workspace);
 
+        // V1 has no historical versions to upgrade from yet.
         return workspace;
     }
 

@@ -46,6 +46,7 @@ public sealed class JsonWorkspaceRepository : IWorkspaceRepository
             }
             catch (InvalidDataException ex)
             {
+                // Listing should remain available even if one file is corrupted.
                 _logWarning($"Skipping corrupted workspace file '{filePath}': {ex.Message}");
             }
         }
@@ -137,6 +138,7 @@ public sealed class JsonWorkspaceRepository : IWorkspaceRepository
         }
         catch (Exception ex) when (ex is JsonException or InvalidDataException or ArgumentException)
         {
+            // Normalize parse/validation failures so callers can handle one persistence error category.
             throw new InvalidDataException($"Failed to read workspace file '{filePath}'.", ex);
         }
     }
@@ -152,6 +154,7 @@ public sealed class JsonWorkspaceRepository : IWorkspaceRepository
             return;
         }
 
+        // CreateNew enforces create semantics atomically and prevents accidental overwrite.
         using var stream = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write, FileShare.None);
         using var writer = new StreamWriter(stream, Utf8NoBom);
         writer.Write(json);

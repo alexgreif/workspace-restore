@@ -4,6 +4,7 @@ namespace WorkspaceApp.Persistence.Serialization;
 
 public static class WorkspaceJsonSerializerOptions
 {
+    // Shared options keep serialization deterministic across repository operations.
     public static JsonSerializerOptions Default { get; } = CreateDefault();
 
     private static JsonSerializerOptions CreateDefault()

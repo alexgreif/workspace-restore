@@ -6,6 +6,7 @@ public sealed class LocalAppDataWorkspaceStoragePathProvider : IWorkspaceStorage
 {
     public LocalAppDataWorkspaceStoragePathProvider(string? localAppDataPath = null)
     {
+        // Allow overriding LocalAppData in tests while defaulting to real OS location in production.
         var resolvedLocalAppDataPath = localAppDataPath;
         if (string.IsNullOrWhiteSpace(resolvedLocalAppDataPath))
         {

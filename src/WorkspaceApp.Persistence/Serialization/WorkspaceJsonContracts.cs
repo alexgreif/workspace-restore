@@ -25,6 +25,7 @@ public sealed class WorkspaceDocument
     public SchemaVersion SchemaVersion { get; init; }
 
     [JsonExtensionData]
+    // Preserve unknown fields so newer schema data is not dropped by older binaries.
     public Dictionary<string, JsonElement>? ExtensionData { get; init; }
 }
 

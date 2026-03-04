@@ -4,6 +4,7 @@ namespace WorkspaceApp.Persistence.Serialization;
 
 public static class WorkspaceJsonMapper
 {
+    // Keeps persistence DTO shape decoupled from domain constructors/invariants.
     public static WorkspaceDocument ToDocument(Workspace workspace)
     {
         ArgumentNullException.ThrowIfNull(workspace);
