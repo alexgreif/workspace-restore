@@ -3,10 +3,12 @@
   <ItemGroup>
     <ProjectReference Include="..\WorkspaceApp.Engine\WorkspaceApp.Engine.csproj" />
     <ProjectReference Include="..\WorkspaceApp.Persistence\WorkspaceApp.Persistence.csproj" />
+    <ProjectReference Include="..\WorkspaceApp.WinApi\WorkspaceApp.WinApi.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
