@@ -7,7 +7,7 @@ public sealed class WindowInfo
 {
     public WindowInfo(
         IntPtr hwnd,
-        int processId,
+        int? processId,
         WinApiRect bounds,
         string? title,
         string? className,
@@ -17,9 +17,9 @@ public sealed class WindowInfo
         string? exePath,
         long zOrderRank)
     {
-        if (processId < 0)
+        if (processId is < 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(processId), "ProcessId must be zero or greater.");
+            throw new ArgumentOutOfRangeException(nameof(processId), "ProcessId must be null or zero/greater.");
         }
 
         if (zOrderRank < 0)
@@ -41,7 +41,7 @@ public sealed class WindowInfo
 
     public IntPtr Hwnd { get; }
 
-    public int ProcessId { get; }
+    public int? ProcessId { get; }
 
     public WinApiRect Bounds { get; }
 
