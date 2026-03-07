@@ -1,5 +1,8 @@
 namespace WorkspaceApp.Domain.Operations;
 
+/// <summary>
+/// Represents a failure detail emitted during an operation.
+/// </summary>
 public sealed class OperationError : OperationMessage
 {
     public OperationError(

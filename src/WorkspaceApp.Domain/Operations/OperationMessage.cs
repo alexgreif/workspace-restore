@@ -2,6 +2,9 @@ using System.Collections.ObjectModel;
 
 namespace WorkspaceApp.Domain.Operations;
 
+/// <summary>
+/// Base type for operation events and errors with shared timestamp/code/message/data contract.
+/// </summary>
 public abstract class OperationMessage
 {
     protected OperationMessage(
@@ -10,6 +13,7 @@ public abstract class OperationMessage
         string message,
         IEnumerable<KeyValuePair<string, string>>? data = null)
     {
+        // "*Utc" timestamps are persisted/reported as UTC only.
         if (timestampUtc.Offset != TimeSpan.Zero)
         {
             throw new ArgumentException("TimestampUtc must be in UTC.", nameof(timestampUtc));

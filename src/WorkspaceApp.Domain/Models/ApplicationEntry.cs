@@ -1,10 +1,12 @@
 namespace WorkspaceApp.Domain.Models;
 
+/// <summary>
+/// Represents one executable and its captured window layouts within a workspace.
+/// </summary>
 public sealed class ApplicationEntry
 {
     public ApplicationEntry(string exePath, IEnumerable<WindowLayout> windows)
     {
-        // Validate exePath
         if (exePath is null)
         {
             throw new ArgumentNullException(
@@ -15,6 +17,8 @@ public sealed class ApplicationEntry
         
         var exePathTrimmed = exePath.Trim();
 
+        // Domain validation is intentionally format-based only.
+        // The file may no longer exist when a persisted workspace is restored later.
         if (!Path.IsPathFullyQualified(exePathTrimmed))
         {
             throw new ArgumentException(

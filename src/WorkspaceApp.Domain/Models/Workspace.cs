@@ -1,5 +1,8 @@
 namespace WorkspaceApp.Domain.Models;
 
+/// <summary>
+/// Represents a persisted workspace configuration, including metadata and application entries.
+/// </summary>
 public sealed class Workspace
 {
     public Workspace(
@@ -20,6 +23,7 @@ public sealed class Workspace
             throw new ArgumentException("Name cannot be null or whitespace.", nameof(name));
         }
 
+        // "*Utc" fields are contractually required to be UTC instants.
         if (createdAtUtc.Offset != TimeSpan.Zero)
         {
             throw new ArgumentException("CreatedAtUtc must be in UTC.", nameof(createdAtUtc));

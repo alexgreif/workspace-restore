@@ -1,5 +1,8 @@
 namespace WorkspaceApp.Domain.Models;
 
+/// <summary>
+/// Represents a captured window layout that can be replayed during restore.
+/// </summary>
 public sealed class WindowLayout
 {
     public WindowLayout(Rect bounds, int zOrderIndex, MonitorHint? monitorHint = null, string? titleHint = null)

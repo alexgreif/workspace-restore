@@ -31,6 +31,7 @@ public sealed class DomainModelValidationTests
     {
         var window = new WindowLayout(new Rect(100, 100, 800, 600), 0);
         var entry = new ApplicationEntry(@"C:\Apps\Tool.exe", [window]);
+        // Generate a non-UTC offset deterministically without relying on OS-specific time zone IDs.
         var nowNonUtc = DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(1));
         var nowUtc = DateTimeOffset.UtcNow;
 
