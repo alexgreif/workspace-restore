@@ -20,12 +20,13 @@ public sealed class WindowEnumerator : IWindowEnumerator
         ArgumentNullException.ThrowIfNull(filter);
 
         var windows = new List<WindowInfo>();
+        var exePathByProcessId = new Dictionary<int, string?>();
         var zOrderRank = 0L;
 
         var enumSucceeded = NativeMethods.EnumWindows(
             (hWnd, _) =>
             {
-                if (TryCreateWindowInfo(hWnd, filter, zOrderRank, out var windowInfo))
+                if (TryCreateWindowInfo(hWnd, filter, zOrderRank, exePathByProcessId, out var windowInfo))
                 {
                     windows.Add(windowInfo);
                     zOrderRank++;
@@ -50,6 +51,7 @@ public sealed class WindowEnumerator : IWindowEnumerator
         IntPtr hWnd,
         WindowFilter filter,
         long zOrderRank,
+        Dictionary<int, string?> exePathByProcessId,
         out WindowInfo windowInfo)
     {
         windowInfo = null!;
@@ -105,7 +107,7 @@ public sealed class WindowEnumerator : IWindowEnumerator
             isVisible,
             isCloaked,
             isShellInfrastructure,
-            TryGetExePath(processId),
+            GetExePathFromCache(processId, exePathByProcessId),
             zOrderRank);
 
         return true;
@@ -162,6 +164,23 @@ public sealed class WindowEnumerator : IWindowEnumerator
             // Access denied or other OS-level process metadata read failure.
             return null;
         }
+    }
+
+    private static string? GetExePathFromCache(int? processId, Dictionary<int, string?> exePathByProcessId)
+    {
+        if (!processId.HasValue)
+        {
+            return null;
+        }
+
+        if (exePathByProcessId.TryGetValue(processId.Value, out var cachedExePath))
+        {
+            return cachedExePath;
+        }
+
+        var resolvedExePath = TryGetExePath(processId.Value);
+        exePathByProcessId[processId.Value] = resolvedExePath;
+        return resolvedExePath;
     }
 
     private static bool TryIsWindowCloaked(IntPtr hWnd, out bool isCloaked)
