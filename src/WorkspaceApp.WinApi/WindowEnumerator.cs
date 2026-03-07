@@ -12,7 +12,8 @@ public sealed class WindowEnumerator : IWindowEnumerator
     {
         "Shell_TrayWnd",
         "Progman",
-        "WorkerW"
+        "WorkerW",
+        "Shell_SecondaryTrayWnd"
     };
 
     public List<WindowInfo> EnumerateTopLevelWindows(WindowFilter filter)
