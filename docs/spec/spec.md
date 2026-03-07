@@ -68,6 +68,7 @@ A window has:
 -   Monitor
 -   Coordinates
 -   Size
+-   State (`Normal`, `Minimized`, `Maximized`)
 
 Workspaces are monitor-topology specific.\
 If restored on a different monitor setup, positioning is best-effort.
@@ -129,6 +130,7 @@ In V1:
 
 -   Capture detects currently visible windows
 -   Creates application entries based on those windows
+-   Stores bounds and window state (`Normal`, `Minimized`, `Maximized`) per captured window
 -   Workspace is stored
 
 Capture does not modify existing workspaces.
@@ -143,6 +145,7 @@ Restoring a workspace means:
 2.  Closing all currently visible, top-level windows (graceful close)
 3.  Opening stored application entries
 4.  Restoring window positions (best-effort)
+5.  Restoring explicit window state (`Normal`, `Minimized`, `Maximized`)
 
 Notes:
 
@@ -214,6 +217,7 @@ System overwrites the selected workspace definition accordingly.
 -   Windows-only (V1)
 -   Visible-window-based application entries
 -   Window position
+-   Explicit window state capture/restore (`Normal`, `Minimized`, `Maximized`)
 -   Capture (create-only)
 -   Restore (global close + open)
 -   Recapture (update-only, overwrite)

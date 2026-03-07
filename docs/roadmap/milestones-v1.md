@@ -99,7 +99,7 @@ Reliably enumerate included windows (V1 window definition) and extract metadata.
     - Not cloaked
     - Exclude shell infrastructure (taskbar/desktop host)
   - Extract:
-    - hwnd, pid, bounds, title/class, exePath (best-effort), z-order rank
+    - hwnd, pid, bounds, title/class, exePath (best-effort), window state, z-order rank
 - Small internal debug tool/harness (console or internal command) that prints snapshot
 
 ## Definition of Done
@@ -119,7 +119,7 @@ Capture current visible windows into a new Workspace (grouped by exePath), persi
 - `ICaptureService` implementation:
   - Enumerate windows
   - Group by exePath into ApplicationEntry
-  - Record WindowLayouts per window
+  - Record WindowLayouts per window (including `Normal`/`Minimized`/`Maximized` state)
   - Compute zOrderIndex consistently
 - Wiring into repository (create)
 - Debug command to capture into a named workspace
@@ -127,6 +127,7 @@ Capture current visible windows into a new Workspace (grouped by exePath), persi
 ## Definition of Done
 - After capture, JSON reflects current visible layout
 - Multiple windows of same executable create one entry with multiple WindowLayouts
+- Captured WindowLayouts include explicit window state
 - Z-order indices are stored consistently
 
 ------------------------------------------------------------------------
@@ -192,13 +193,13 @@ Launch executables and match resulting visible windows to apply layouts (best-ef
 
 ------------------------------------------------------------------------
 
-# Milestone 8 — WinApi: Window Movement, Monitor Clamp, Minimize
+# Milestone 8 — WinApi: Window Movement, Monitor Clamp, and State Replay
 
 ## Goal
-Apply bounds deterministically and handle off-screen behavior per V1 spec.
+Apply bounds deterministically, replay explicit window state, and handle off-screen behavior per V1 spec.
 
 ## Deliverables
-- `IWindowMover` implementation (SetWindowPos + Minimize + Activate)
+- `IWindowMover` implementation (SetWindowPos + Minimize + Restore + Maximize + Activate)
 - `IMonitorService` implementation:
   - Work area detection
   - Clamp logic
@@ -207,11 +208,13 @@ Apply bounds deterministically and handle off-screen behavior per V1 spec.
   - Apply bounds
   - Clamp if partially off-screen
   - Clamp + minimize if fully off-screen
+  - Replay captured explicit state (`Normal`/`Minimized`/`Maximized`)
 
 ## Definition of Done
 - Restored windows appear where expected on stable monitor topology
 - When topology changes, off-screen windows are clamped correctly
 - Fully off-screen windows end minimized (after clamp)
+- Captured minimized/maximized windows replay their explicit state correctly
 - Behavior matches spec precisely
 
 ------------------------------------------------------------------------
@@ -306,6 +309,7 @@ V1 is considered complete when:
   - abort on timeout/refusal
   - launch executables
   - best-effort positioning of up to N windows per entry
+  - explicit window state replay (`Normal`/`Minimized`/`Maximized`)
   - clamp + minimize for fully off-screen windows
   - z-order replay
 - One JSON file per workspace persistence is stable

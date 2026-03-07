@@ -5,6 +5,7 @@ This folder contains architecture and implementation decisions for the Workspace
 ## ADR Index
 
 - ADR-0001: V1 Technology Stack (.NET 8 + C# + WPF)
+- ADR-0002: Explicit Window State in V1 Capture/Restore
 
 ## Conventions
 

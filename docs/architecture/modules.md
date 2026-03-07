@@ -61,10 +61,11 @@ class WindowFilter {
 ```csharp
 class WindowInfo {
   IntPtr Hwnd;
-  int ProcessId;
+  int? ProcessId;
   string? Title;
   string? ClassName;
   WinApiRect Bounds;         // virtual desktop coordinates
+  WindowShowState State;     // Normal / Minimized / Maximized
   bool IsVisible;
   bool IsCloaked;
   bool IsShellInfrastructure;
@@ -75,6 +76,8 @@ class WindowInfo {
 
 ```csharp
 struct WinApiRect { int X; int Y; int Width; int Height; }
+
+enum WindowShowState { Normal, Minimized, Maximized }
 ```
 
 ## L0.2 Graceful Close
@@ -92,7 +95,8 @@ interface IWindowCloser {
 interface IWindowMover {
   void SetBounds(IntPtr hwnd, WinApiRect bounds);
   void Minimize(IntPtr hwnd);
-  void Restore(IntPtr hwnd);          // optional; used if needed to position
+  void Restore(IntPtr hwnd);          // restore to normal state
+  void Maximize(IntPtr hwnd);
   void Activate(IntPtr hwnd);         // used for z-order replay
 }
 ```
@@ -166,11 +170,14 @@ class ApplicationEntry {
 class WindowLayout {
   Rect Bounds;                    // virtual desktop coordinates
   int ZOrderIndex;                // relative stacking order (0 = bottom ... n-1 = top)
+  WindowState State;              // Normal / Minimized / Maximized
   MonitorHint? MonitorHint;       // best-effort metadata
   string? TitleHint;              // non-authoritative metadata
 }
 
 struct Rect { int X; int Y; int Width; int Height; }
+
+enum WindowState { Normal, Minimized, Maximized }
 
 class MonitorHint {
   int? MonitorIndex;              // optional future-facing hint (not used for binding in V1)
@@ -258,7 +265,7 @@ Capture algorithm (normative):
 - Enumerate included windows
 - Resolve exePath per window
 - Group by exePath
-- Store WindowLayouts (bounds + titleHint + computed z-order index)
+- Store WindowLayouts (bounds + state + titleHint + computed z-order index)
 
 ## L3.2 Recapture (update-only, overwrite)
 
@@ -323,6 +330,10 @@ class RestoreOptions {
   - Else if partially off-screen:
     - Clamp bounds only
   - Apply bounds
+  - Replay explicit state from captured layout:
+    - `Normal` -> `Restore(hwnd)`
+    - `Maximized` -> `Maximize(hwnd)`
+    - `Minimized` -> `Minimize(hwnd)`
 - After all positioned:
   - Replay z-order using Activate(hwnd) in recorded order
 
