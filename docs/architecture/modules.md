@@ -64,13 +64,17 @@ class WindowInfo {
   int ProcessId;
   string? Title;
   string? ClassName;
-  Rect Bounds;               // virtual desktop coordinates
+  WinApiRect Bounds;         // virtual desktop coordinates
   bool IsVisible;
   bool IsCloaked;
   bool IsShellInfrastructure;
   string? ExePath;           // resolved from PID; may be null on failure
   long ZOrderRank;           // derived from EnumWindows order or explicit query; used to compute ZOrderIndex
 }
+```
+
+```csharp
+struct WinApiRect { int X; int Y; int Width; int Height; }
 ```
 
 ## L0.2 Graceful Close
@@ -86,7 +90,7 @@ interface IWindowCloser {
 
 ```csharp
 interface IWindowMover {
-  void SetBounds(IntPtr hwnd, Rect bounds);
+  void SetBounds(IntPtr hwnd, WinApiRect bounds);
   void Minimize(IntPtr hwnd);
   void Restore(IntPtr hwnd);          // optional; used if needed to position
   void Activate(IntPtr hwnd);         // used for z-order replay
@@ -111,20 +115,24 @@ class LaunchResult {
 
 ```csharp
 interface IMonitorService {
-  Rect GetVirtualDesktopBounds();
+  WinApiRect GetVirtualDesktopBounds();
   List<MonitorInfo> GetMonitors();
-  Rect GetNearestVisibleWorkArea(Rect target);
-  bool IsFullyOffscreen(Rect target);
-  bool IsPartiallyOffscreen(Rect target);
-  Rect ClampToVisibleWorkArea(Rect target);
+  WinApiRect GetNearestVisibleWorkArea(WinApiRect target);
+  bool IsFullyOffscreen(WinApiRect target);
+  bool IsPartiallyOffscreen(WinApiRect target);
+  WinApiRect ClampToVisibleWorkArea(WinApiRect target);
 }
 
 class MonitorInfo {
   int Index;
-  Rect Bounds;
-  Rect WorkArea;
+  WinApiRect Bounds;
+  WinApiRect WorkArea;
 }
 ```
+
+Boundary note:
+- `WinApi` defines and uses `WinApiRect` so Layer 0 has no dependency on `Domain`.
+- `WorkspaceEngine` performs explicit mapping between `WinApiRect` (L0) and `Domain.Rect` (L1).
 
 ------------------------------------------------------------------------
 
