@@ -40,78 +40,9 @@ V1 UI technology: WPF.
 
 ------------------------------------------------------------------------
 
-# 2. Domain (Layer 1) — Public Types
+# L0. WinApi — Public Interfaces
 
-> Note: Signatures are language-agnostic and written in C#-like pseudocode for clarity.
-
-## 2.1 Identifiers
-
-```csharp
-type WorkspaceId = string;   // e.g., UUID
-```
-
-## 2.2 Core Models
-
-```csharp
-class Workspace {
-  WorkspaceId Id;
-  string Name;
-  DateTime CreatedAtUtc;
-  DateTime UpdatedAtUtc;
-  List<ApplicationEntry> Entries;
-  SchemaVersion SchemaVersion;  // persisted
-}
-
-class ApplicationEntry {
-  string ExePath;                 // primary identity (normalized absolute path)
-  List<WindowLayout> Windows;     // 1..n captured layouts for this executable
-}
-
-class WindowLayout {
-  Rect Bounds;                    // virtual desktop coordinates
-  int ZOrderIndex;                // relative stacking order (0 = bottom ... n-1 = top)
-  MonitorHint? MonitorHint;       // best-effort metadata
-  string? TitleHint;              // non-authoritative metadata
-}
-
-struct Rect { int X; int Y; int Width; int Height; }
-
-class MonitorHint {
-  int? MonitorIndex;              // optional future-facing hint (not used for binding in V1)
-}
-```
-
-## 2.3 Operation Results
-
-```csharp
-enum OperationStatus { Success, PartialSuccess, Failed, Aborted }
-
-class OperationResult {
-  OperationStatus Status;
-  List<OperationEvent> Events;
-  List<OperationError> Errors;
-}
-
-class OperationEvent {
-  DateTime TimestampUtc;
-  string Code;        // e.g. "GLOBAL_CLOSE_BEGIN", "WINDOW_CLOSED", "APP_LAUNCHED", "WINDOW_POSITIONED"
-  string Message;
-  Map<string, string> Data;  // structured details (hwnd/pid/exePath/etc.)
-}
-
-class OperationError {
-  DateTime TimestampUtc;
-  string Code;        // e.g. "CLOSE_TIMEOUT", "LAUNCH_FAILED", "WINDOW_MATCH_TIMEOUT"
-  string Message;
-  Map<string, string> Data;
-}
-```
-
-------------------------------------------------------------------------
-
-# 3. WinApi (Layer 0) — Public Interfaces
-
-## 3.1 Window Enumeration
+## L0.1 Window Enumeration
 
 ```csharp
 interface IWindowEnumerator {
@@ -142,7 +73,7 @@ class WindowInfo {
 }
 ```
 
-## 3.2 Graceful Close
+## L0.2 Graceful Close
 
 ```csharp
 interface IWindowCloser {
@@ -151,7 +82,7 @@ interface IWindowCloser {
 }
 ```
 
-## 3.3 Window Positioning & State
+## L0.3 Window Positioning & State
 
 ```csharp
 interface IWindowMover {
@@ -162,7 +93,7 @@ interface IWindowMover {
 }
 ```
 
-## 3.4 Process Launch
+## L0.4 Process Launch
 
 ```csharp
 interface IProcessLauncher {
@@ -176,7 +107,7 @@ class LaunchResult {
 }
 ```
 
-## 3.5 Monitor Utilities
+## L0.5 Monitor Utilities
 
 ```csharp
 interface IMonitorService {
@@ -197,9 +128,78 @@ class MonitorInfo {
 
 ------------------------------------------------------------------------
 
-# 4. Persistence (Layer 2) — Public Interfaces
+# L1. Domain — Public Types
 
-## 4.1 Repository
+> Note: Signatures are language-agnostic and written in C#-like pseudocode for clarity.
+
+## L1.1 Identifiers
+
+```csharp
+type WorkspaceId = string;   // e.g., UUID
+```
+
+## L1.2 Core Models
+
+```csharp
+class Workspace {
+  WorkspaceId Id;
+  string Name;
+  DateTime CreatedAtUtc;
+  DateTime UpdatedAtUtc;
+  List<ApplicationEntry> Entries;
+  SchemaVersion SchemaVersion;  // persisted
+}
+
+class ApplicationEntry {
+  string ExePath;                 // primary identity (normalized absolute path)
+  List<WindowLayout> Windows;     // 1..n captured layouts for this executable
+}
+
+class WindowLayout {
+  Rect Bounds;                    // virtual desktop coordinates
+  int ZOrderIndex;                // relative stacking order (0 = bottom ... n-1 = top)
+  MonitorHint? MonitorHint;       // best-effort metadata
+  string? TitleHint;              // non-authoritative metadata
+}
+
+struct Rect { int X; int Y; int Width; int Height; }
+
+class MonitorHint {
+  int? MonitorIndex;              // optional future-facing hint (not used for binding in V1)
+}
+```
+
+## L1.3 Operation Results
+
+```csharp
+enum OperationStatus { Success, PartialSuccess, Failed, Aborted }
+
+class OperationResult {
+  OperationStatus Status;
+  List<OperationEvent> Events;
+  List<OperationError> Errors;
+}
+
+class OperationEvent {
+  DateTime TimestampUtc;
+  string Code;        // e.g. "GLOBAL_CLOSE_BEGIN", "WINDOW_CLOSED", "APP_LAUNCHED", "WINDOW_POSITIONED"
+  string Message;
+  Map<string, string> Data;  // structured details (hwnd/pid/exePath/etc.)
+}
+
+class OperationError {
+  DateTime TimestampUtc;
+  string Code;        // e.g. "CLOSE_TIMEOUT", "LAUNCH_FAILED", "WINDOW_MATCH_TIMEOUT"
+  string Message;
+  Map<string, string> Data;
+}
+```
+
+------------------------------------------------------------------------
+
+# L2. Persistence — Public Interfaces
+
+## L2.1 Repository
 
 ```csharp
 interface IWorkspaceRepository {
@@ -219,7 +219,7 @@ class WorkspaceSummary {
 }
 ```
 
-## 4.2 Schema Versioning
+## L2.2 Schema Versioning
 
 ```csharp
 enum SchemaVersion { V1 = 1 }
@@ -232,9 +232,9 @@ interface ISchemaMigrator {
 
 ------------------------------------------------------------------------
 
-# 5. WorkspaceEngine (Layer 3) — Public Interfaces
+# L3. WorkspaceEngine — Public Interfaces
 
-## 5.1 Capture (create-only)
+## L3.1 Capture (create-only)
 
 ```csharp
 interface ICaptureService {
@@ -252,7 +252,7 @@ Capture algorithm (normative):
 - Group by exePath
 - Store WindowLayouts (bounds + titleHint + computed z-order index)
 
-## 5.2 Recapture (update-only, overwrite)
+## L3.2 Recapture (update-only, overwrite)
 
 ```csharp
 interface IRecaptureService {
@@ -265,7 +265,7 @@ class RecaptureOptions {
 }
 ```
 
-## 5.3 Restore
+## L3.3 Restore
 
 ```csharp
 interface IRestoreService {
@@ -320,7 +320,7 @@ class RestoreOptions {
 
 ------------------------------------------------------------------------
 
-# 6. AppOrchestrator (Layer 4) — Public Interface
+# L4. AppOrchestrator — Public Interface
 
 UI should call only this façade.
 
@@ -346,7 +346,7 @@ Implementation notes:
 
 ------------------------------------------------------------------------
 
-# 7. UI (Layer 5) — Minimal Contract
+# L5. UI — Minimal Contract
 
 - Workspace list view (ListWorkspaces)
 - Buttons: Capture / Recapture / Restore / Delete
@@ -370,3 +370,4 @@ MatchPollInterval:            200ms
 ------------------------------------------------------------------------
 
 End of Architecture (V1 Modules & Interfaces)
+
