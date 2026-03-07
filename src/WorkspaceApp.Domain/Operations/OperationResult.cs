@@ -1,5 +1,8 @@
 namespace WorkspaceApp.Domain.Operations;
 
+/// <summary>
+/// Captures the result of a workspace operation, including progress events and errors.
+/// </summary>
 public sealed class OperationResult
 {
     public OperationResult(
