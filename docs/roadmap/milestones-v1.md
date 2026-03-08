@@ -106,6 +106,7 @@ Reliably enumerate included windows (V1 window definition) and extract metadata.
 - Snapshot returns expected windows and excludes taskbar/desktop
 - Bounds match what is visible on screen
 - exePath resolves for common apps
+- Window state (`Normal`/`Minimized`/`Maximized`) is extracted reliably for included windows
 - Z-order rank is consistent enough to derive zOrderIndex
 
 ------------------------------------------------------------------------
