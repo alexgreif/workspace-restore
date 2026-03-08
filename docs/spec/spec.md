@@ -73,6 +73,17 @@ A window has:
 Workspaces are monitor-topology specific.\
 If restored on a different monitor setup, positioning is best-effort.
 
+### Window Inclusion Semantics (V1)
+
+V1 inclusion is intentionally simple and generic:
+
+- Include windows that satisfy the V1 filter (`visible`, `not cloaked`, `not shell infrastructure`).
+- Maximized/fullscreen windows are included and captured with explicit state.
+- Minimized windows are included and captured with explicit state.
+
+V1 does **not** add app-specific heuristics to exclude auxiliary/tool/notification windows
+beyond shell infrastructure filtering.
+
 ------------------------------------------------------------------------
 
 ## 1.3 Special Case: The Workspace App Itself

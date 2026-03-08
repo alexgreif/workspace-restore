@@ -54,9 +54,13 @@ interface IWindowEnumerator {
 class WindowFilter {
   bool RequireVisible = true;
   bool ExcludeCloaked = true;
-  bool ExcludeShellInfrastructure = true;   // taskbar/desktop host
+  bool ExcludeShellInfrastructure = true;   // taskbar/desktop host (e.g., Shell_TrayWnd, Shell_SecondaryTrayWnd, Progman, WorkerW)
 }
 ```
+
+V1 shell filtering note:
+- `ExcludeShellInfrastructure` targets known desktop/taskbar hosts only.
+- Broader auxiliary-window heuristics are intentionally deferred (see backlog).
 
 ```csharp
 class WindowInfo {
