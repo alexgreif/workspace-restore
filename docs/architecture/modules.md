@@ -54,23 +54,34 @@ interface IWindowEnumerator {
 class WindowFilter {
   bool RequireVisible = true;
   bool ExcludeCloaked = true;
-  bool ExcludeShellInfrastructure = true;   // taskbar/desktop host
+  bool ExcludeShellInfrastructure = true;   // taskbar/desktop host (e.g., Shell_TrayWnd, Shell_SecondaryTrayWnd, Progman, WorkerW)
 }
 ```
+
+V1 shell filtering note:
+- `ExcludeShellInfrastructure` targets known desktop/taskbar hosts only.
+- Broader auxiliary-window heuristics are intentionally deferred (see backlog).
 
 ```csharp
 class WindowInfo {
   IntPtr Hwnd;
-  int ProcessId;
+  int? ProcessId;
   string? Title;
   string? ClassName;
-  Rect Bounds;               // virtual desktop coordinates
+  WinApiRect Bounds;         // virtual desktop coordinates
+  WindowShowState State;     // Normal / Minimized / Maximized
   bool IsVisible;
   bool IsCloaked;
   bool IsShellInfrastructure;
   string? ExePath;           // resolved from PID; may be null on failure
   long ZOrderRank;           // derived from EnumWindows order or explicit query; used to compute ZOrderIndex
 }
+```
+
+```csharp
+struct WinApiRect { int X; int Y; int Width; int Height; }
+
+enum WindowShowState { Normal, Minimized, Maximized }
 ```
 
 ## L0.2 Graceful Close
@@ -86,9 +97,10 @@ interface IWindowCloser {
 
 ```csharp
 interface IWindowMover {
-  void SetBounds(IntPtr hwnd, Rect bounds);
+  void SetBounds(IntPtr hwnd, WinApiRect bounds);
   void Minimize(IntPtr hwnd);
-  void Restore(IntPtr hwnd);          // optional; used if needed to position
+  void Restore(IntPtr hwnd);          // restore to normal state
+  void Maximize(IntPtr hwnd);
   void Activate(IntPtr hwnd);         // used for z-order replay
 }
 ```
@@ -111,20 +123,24 @@ class LaunchResult {
 
 ```csharp
 interface IMonitorService {
-  Rect GetVirtualDesktopBounds();
+  WinApiRect GetVirtualDesktopBounds();
   List<MonitorInfo> GetMonitors();
-  Rect GetNearestVisibleWorkArea(Rect target);
-  bool IsFullyOffscreen(Rect target);
-  bool IsPartiallyOffscreen(Rect target);
-  Rect ClampToVisibleWorkArea(Rect target);
+  WinApiRect GetNearestVisibleWorkArea(WinApiRect target);
+  bool IsFullyOffscreen(WinApiRect target);
+  bool IsPartiallyOffscreen(WinApiRect target);
+  WinApiRect ClampToVisibleWorkArea(WinApiRect target);
 }
 
 class MonitorInfo {
   int Index;
-  Rect Bounds;
-  Rect WorkArea;
+  WinApiRect Bounds;
+  WinApiRect WorkArea;
 }
 ```
+
+Boundary note:
+- `WinApi` defines and uses `WinApiRect` so Layer 0 has no dependency on `Domain`.
+- `WorkspaceEngine` performs explicit mapping between `WinApiRect` (L0) and `Domain.Rect` (L1).
 
 ------------------------------------------------------------------------
 
@@ -158,11 +174,14 @@ class ApplicationEntry {
 class WindowLayout {
   Rect Bounds;                    // virtual desktop coordinates
   int ZOrderIndex;                // relative stacking order (0 = bottom ... n-1 = top)
+  WindowState State;              // Normal / Minimized / Maximized
   MonitorHint? MonitorHint;       // best-effort metadata
   string? TitleHint;              // non-authoritative metadata
 }
 
 struct Rect { int X; int Y; int Width; int Height; }
+
+enum WindowState { Normal, Minimized, Maximized }
 
 class MonitorHint {
   int? MonitorIndex;              // optional future-facing hint (not used for binding in V1)
@@ -250,7 +269,7 @@ Capture algorithm (normative):
 - Enumerate included windows
 - Resolve exePath per window
 - Group by exePath
-- Store WindowLayouts (bounds + titleHint + computed z-order index)
+- Store WindowLayouts (bounds + state + titleHint + computed z-order index)
 
 ## L3.2 Recapture (update-only, overwrite)
 
@@ -315,6 +334,10 @@ class RestoreOptions {
   - Else if partially off-screen:
     - Clamp bounds only
   - Apply bounds
+  - Replay explicit state from captured layout:
+    - `Normal` -> `Restore(hwnd)`
+    - `Maximized` -> `Maximize(hwnd)`
+    - `Minimized` -> `Minimize(hwnd)`
 - After all positioned:
   - Replay z-order using Activate(hwnd) in recorded order
 
