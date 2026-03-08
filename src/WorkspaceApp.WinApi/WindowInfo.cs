@@ -9,6 +9,7 @@ public sealed class WindowInfo
         IntPtr hwnd,
         int? processId,
         WinApiRect bounds,
+        WindowShowState state,
         string? title,
         string? className,
         bool isVisible,
@@ -30,6 +31,7 @@ public sealed class WindowInfo
         Hwnd = hwnd;
         ProcessId = processId;
         Bounds = bounds;
+        State = state;
         Title = string.IsNullOrWhiteSpace(title) ? null : title.Trim();
         ClassName = string.IsNullOrWhiteSpace(className) ? null : className.Trim();
         IsVisible = isVisible;
@@ -44,6 +46,8 @@ public sealed class WindowInfo
     public int? ProcessId { get; }
 
     public WinApiRect Bounds { get; }
+
+    public WindowShowState State { get; }
 
     public string? Title { get; }
 

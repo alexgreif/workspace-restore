@@ -103,6 +103,7 @@ public sealed class WindowEnumerator : IWindowEnumerator
             hWnd,
             processId,
             new WinApiRect(nativeRect.Left, nativeRect.Top, width, height),
+            GetWindowShowState(hWnd),
             TryGetWindowTitle(hWnd),
             className,
             isVisible,
@@ -201,6 +202,21 @@ public sealed class WindowEnumerator : IWindowEnumerator
 
         isCloaked = cloakedValue != 0;
         return true;
+    }
+
+    private static WindowShowState GetWindowShowState(IntPtr hWnd)
+    {
+        if (NativeMethods.IsIconic(hWnd))
+        {
+            return WindowShowState.Minimized;
+        }
+
+        if (NativeMethods.IsZoomed(hWnd))
+        {
+            return WindowShowState.Maximized;
+        }
+
+        return WindowShowState.Normal;
     }
 
     private static bool IsShellInfrastructure(string? className)

@@ -46,7 +46,7 @@ for (var i = 0; i < windowsToPrint; i++)
     Console.WriteLine($"class : \"{Truncate(window.ClassName, 64)}\"");
 
     Console.WriteLine(
-        $"state : visible={TF(window.IsVisible),-1}  cloaked={TF(window.IsCloaked),-1}  shell={TF(window.IsShellInfrastructure),-1}");
+        $"state : show={window.State}  visible={TF(window.IsVisible)}  cloaked={TF(window.IsCloaked)}  shell={TF(window.IsShellInfrastructure)}");
 
     Console.WriteLine(
         $"rect  : x={window.Bounds.X} y={window.Bounds.Y} w={window.Bounds.Width} h={window.Bounds.Height}");
