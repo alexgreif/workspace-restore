@@ -13,3 +13,7 @@ coverage/
 .vs/
 *.user
 *.suo
+
+# Local dev artifacts
+.local/
+.tmp/
